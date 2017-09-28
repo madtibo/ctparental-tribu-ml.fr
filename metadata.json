@@ -1,0 +1,11 @@
+{
+		"shell-version": ["3.14"],
+		"uuid": "ctparental@tribu-ml.fr",
+		"extension-id": "ctparental-time-displayer", 
+		"name": "CTParental",
+		"description": "Shell extension for CTParental - donne le temps restant",
+		"original-authors": [
+				"thibaut@tribu-ml.fr"
+		], 
+		"version": 1
+}
