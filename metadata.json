@@ -1,11 +1,13 @@
 {
-		"shell-version": ["3.14"],
-		"uuid": "ctparental@tribu-ml.fr",
-		"extension-id": "ctparental-time-displayer", 
-		"name": "CTParental",
-		"description": "Shell extension for CTParental - donne le temps restant",
-		"original-authors": [
-				"thibaut@tribu-ml.fr"
-		], 
-		"version": 1
+    "description": "Shell extension for CTParental - display remaining time",
+    "extension-id": "ctparental-time-displayer", 
+    "name": "CTParental",
+    "original-authors": [
+	"madtibo@tribu-ml.fr"
+    ], 
+    "settings-schema": "org.gnome.shell.extensions.ctparental-time-displayer", 
+    "shell-version": [ "3.14" ],
+    "url": "https://github.com/madtibo/ctparental-tribu-ml.fr.git", 
+    "uuid": "ctparental@tribu-ml.fr",
+    "version": 1
 }
