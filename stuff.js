@@ -1,5 +1,6 @@
 #!/usr/bin/gjs
 
+const Gtk = imports.gi.Gtk;
 const GLib = imports.gi.GLib;
 
 function getWeekdayStartingMonday() {
@@ -47,7 +48,7 @@ function readFile(filename) {
 
 function parseTimeFromFile(confFile, user) {
     let time = 0;
-    let timeRegexp = '^('+user+'[ ]*=[ ]*)([0-9]+)$';
+    let timeRegexp = '^('+user+'=[user=]*)([0-9]+)$';
     try {
 	let confLines=confFile.toString().split(',')[1].split('\n');
 	for (let i=0; i<confLines.length; i++) {
@@ -100,16 +101,50 @@ function getTodayTimetable(confDir) {
     	return "Undefined";
     }
     return tt.split(':');
-    // let times = tt.split(':');
-    // if (times.length == 4) {
-    // 	timetable = [ times[0], times[1], times[2], times[3] ];
-    // }
-    // else if (times.length == 2) {
-    // 	timetable = [ times[0], times[1] ];
-    // }
-    // else {
-    // 	timetable = [ times ];
-    // }
-    // return timetable;
 }
 
+// return the number of minutes since the beginning of the day from a day time
+// the day time is in the form: "HHhMM"
+function minutesFromDaytime(hour_minute) {
+    let t = hour_minute.split('h');
+    if (t.length === 2) {
+	return (t[0]*60 + t[1]*1);
+    }
+    else {
+	// return the number of minutes in a day
+	return 1440;
+    }
+}
+
+// get the number of minutes before logout
+// it is the minimum between the end timeperiod and the remaining time
+function getLogoutTime(confDir) {
+    let remainingTime = getRemainingTime(confDir);
+    let todayTimetable = getTodayTimetable(confDir);
+    let logoutTime = 'Undefined';
+    
+    let now = new Date();
+    let curr_time = now.getHours()*60+now.getMinutes()*1;
+
+    if (todayTimetable.length == 4) {
+	// 2 possible logout times ([1] and [3])
+	if (minutesFromDaytime(todayTimetable[1]) > curr_time) {
+	    logoutTime = minutesFromDaytime(todayTimetable[1]) - curr_time;
+	}
+	else if (minutesFromDaytime(todayTimetable[3]) > curr_time) {
+	    logoutTime = minutesFromDaytime(todayTimetable[3]) - curr_time;
+	}
+    }
+    else if (todayTimetable.length == 2) {
+	// use the end date if posterior
+	if (minutesFromDaytime(todayTimetable[1]) > curr_time) {
+	    logoutTime = minutesFromDaytime(todayTimetable[1]) - curr_time;
+	}
+    }
+    if (logoutTime != 'Undefined') {
+	return Math.min(logoutTime, remainingTime);
+    }
+    else {
+	return remainingTime;
+    }
+}

@@ -1,16 +1,34 @@
-# ctparental-tribu-ml.fr
+# CTparental Gnome Shell extension
 
+Simple [CTparental](https://github.com/marsat/CTparental) shell extension for Gnome 3.
+
+## Install
+
+Current validated Gnome shell version: 3.22
+
+Please tell me if this extension is functional on other versions.
+
+#### Manual installation for testing and development
+
+To install just symlink the checkout folder into `~/.local/share/gnome-shell/extensions/` as `ctparental@tribu-ml.fr`. It looks something like this:
+
+```sh
+cd ~/.local/share/gnome-shell/extensions/
+ln -s /path/to/the/checkout ctparental@tribu-ml.fr
+```
+
+After that you can enable the extension and change the preferences using Tweak Tool, or on https://extensions.gnome.org/local/
+
+## Contributing
+
+1. [Fork](https://github.com/madtibo/ctparental-tribu-ml.fr/fork) this project
+2. Create a topic branch - `git checkout -b my_branch`
+3. Push to your branch - `git push origin my_branch`
+4. Submit a [Pull Request](https://github.com/madtibo/ctparental-tribu-ml.fr/pulls) with your branch
+5. That's it!
+
+## Thanks
 
 Thanks to dAKirby309 from its icon from deviantart (CC Attribution 3.0 license).
 
-
-# create pot file
-xgettext -k_ -kN_ -o messages.pot extension.js prefs.js stuff.js 
-
-# compile po file
-msgfmt -o locale/fr/LC_MESSAGES/fr.mo  locale/fr/LC_MESSAGES/fr.po
-
-# compile xml schema
-glib-compile-schemas schemas
-
-# looking glass : Alt-F2 > lg
+Thanks to [projecthamster](//github.com/projecthamster/shell-extension) from which I learn how to make a gnome extension.

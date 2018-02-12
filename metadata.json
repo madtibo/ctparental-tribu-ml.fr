@@ -6,7 +6,7 @@
 	"madtibo@tribu-ml.fr"
     ], 
     "settings-schema": "org.gnome.shell.extensions.ctparental-time-displayer", 
-    "shell-version": [ "3.14" ],
+    "shell-version": [ "3.22" ],
     "url": "https://github.com/madtibo/ctparental-tribu-ml.fr.git", 
     "uuid": "ctparental@tribu-ml.fr",
     "version": 1

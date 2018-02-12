@@ -110,20 +110,6 @@ const CTParentalSettingsWidget = new GObject.Class(
 	    vbox.add(entry);
 	    entry.connect('changed', Lang.bind(this, this._onConfFileChange));
 
-	    // hotkey
-	    label = new Gtk.Label({margin_top: 20});
-	    label.set_markup("<b>" + _("Global hotkey") + "</b>");
-	    label.set_alignment(0, 0.5);
-	    this.add(label);
-
-	    vbox = new Gtk.VBox({margin: 10});
-	    this.add(vbox);
-	    let entry = new Gtk.Entry({margin_bottom: 10,
-	    			       margin_top: 5,
-	    			       text: this._settings.get_strv("show-ctparental-dropdown")[0]});
-	    vbox.add(entry);
-	    entry.connect('changed', Lang.bind(this, this._onHotkeyChange));
-
 	    vbox.add(new Gtk.Label({label: _("Reload gnome shell after updating prefs (alt+f2 > r)"),
 	    			    margin_top: 70}));
 	},
@@ -161,18 +147,8 @@ const CTParentalSettingsWidget = new GObject.Class(
 	    	return;
 
 	    this._settings.set_strv("ctparental-configuration-file", [newConFile]);
-	},
-	
-	_onHotkeyChange: function(widget, bananas) {
-	    let hotkey = widget.get_text();
-	    let [key, mods] = Gtk.accelerator_parse(hotkey);
-
-	    if (key != 0) {
-		let parsedName = Gtk.accelerator_name(key, mods);
-		this._settings.set_strv("show-ctparental-dropdown", [parsedName]);
-	    }
-
 	}
+	
     }
 );
 

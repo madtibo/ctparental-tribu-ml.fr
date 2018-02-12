@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ctparental-time-displayer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-07 23:15+0100\n"
-"PO-Revision-Date: 2018-02-07 23:16+0100\n"
+"POT-Creation-Date: 2018-02-12 15:34+0100\n"
+"PO-Revision-Date: 2018-02-12 15:36+0100\n"
 "Last-Translator: madtibo <madtibo@tribu-ml.fr>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -44,67 +44,75 @@ msgstr ""
 msgid "Global key combination to show the drop-down."
 msgstr "Raccourci clavier pour montrer le menu"
 
-#: extension.js:41 extension.js:44
+#: extension.js:41 extension.js:44 extension.js:104
 msgid "CTParental"
 msgstr "CTParental"
 
-#: extension.js:64
+#: extension.js:74
 msgid "Remaining time: "
 msgstr "Temps restant : "
 
-#: extension.js:68
+#: extension.js:78
 msgid "Today's schedule: "
 msgstr "Horaire du jour : "
 
-#: extension.js:74
+#: extension.js:84
 msgid " to "
 msgstr " à "
 
-#: prefs.js:48
+#: extension.js:101
+msgid "Logout in "
+msgstr "Déconnexion dans "
+
+#: extension.js:101
+msgid " minutes"
+msgstr " minutes"
+
+#: prefs.js:49
 msgid "Appearance in panel"
 msgstr "Apparence de l'indicateur"
 
-#: prefs.js:58
+#: prefs.js:59
 msgid "Label"
 msgstr "Vignette"
 
-#: prefs.js:59
+#: prefs.js:60
 msgid "Icon"
 msgstr "Icône"
 
-#: prefs.js:60
+#: prefs.js:61
 msgid "Label and icon"
 msgstr "Vignette et icône"
 
-#: prefs.js:74
+#: prefs.js:75
 msgid "Position in panel"
 msgstr "Position dans le panneau"
 
-#: prefs.js:84
+#: prefs.js:85
 msgid "Left"
 msgstr "Gauche"
 
-#: prefs.js:85
+#: prefs.js:86
 msgid "Center"
 msgstr "Centre"
 
-#: prefs.js:86
+#: prefs.js:87
 msgid "Right"
 msgstr "Droite"
 
-#: prefs.js:87
+#: prefs.js:88
 msgid "System menu"
 msgstr "Menu système"
 
-#: prefs.js:100
+#: prefs.js:101
 msgid "Configuration directory"
 msgstr "Répertoire de configuration"
 
-#: prefs.js:114
+#: prefs.js:115
 msgid "Global hotkey"
 msgstr "Touche de raccourci globale"
 
-#: prefs.js:126
+#: prefs.js:127
 msgid "Reload gnome shell after updating prefs (alt+f2 > r)"
 msgstr ""
 "Recharger le shell gnome après la mise à jour des préférences (alt+f2 > r)"

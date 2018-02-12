@@ -37,28 +37,37 @@ const CTParentalMenu = new Lang.Class({
     Name: 'CTParentalMenu.CTParentalMenu',
     Extends: PanelMenu.Button,
 
-    _init: function() {	
+    _init: function() {
         this.parent(0.0, _("CTParental"));
 
-        let hbox = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
+        this.panelContainer = new St.BoxLayout({ style_class: 'panel-status-menu-box' });
         this.statusLabel = new St.Label({ text: _("CTParental"),
 					  y_expand: true,
 					  y_align: Clutter.ActorAlign.CENTER });
-        hbox.add_child(this.statusLabel);
-        hbox.add_child(PopupMenu.arrowIcon(St.Side.BOTTOM));
-        this.actor.add_actor(hbox);
+        this.panelContainer.add_child(this.statusLabel);
+        this.panelContainer.add_child(PopupMenu.arrowIcon(St.Side.BOTTOM));
+        this.actor.add_actor(this.panelContainer);
+
+        // panel icon
+        this._symbolicIcon = Gio.icon_new_for_string(Me.path + "/images/ctparental_symbolic.svg");
+
+        this.icon = new St.Icon({gicon: this._symbolicIcon,
+                                 icon_size: 16,
+                                 style_class: "panel-icon"});
+        this.panelContainer.add(this.icon);
 
 	this.menuSection = new PopupMenu.PopupMenuSection();
 	this.menu.addMenuItem(this.menuSection);
 	
-	this._updateLabel();
+	this._updatePanelDisplay();
     },
 
     _updateMenu: function() {
-        this.menu.removeAll();
         this._settings = Convenience.getSettings();
 	let confDir = this._settings.get_strv("ctparental-configuration-file");
-	    
+
+        this.menu.removeAll();
+
 	// get the remaining time
         let timeLeft = Stuff.getRemainingTime(confDir);
 	this.remainingTimeItem = new PopupMenu.PopupMenuItem(_("Remaining time: ")+Stuff.formatDurationHuman(timeLeft));
@@ -77,21 +86,49 @@ const CTParentalMenu = new Lang.Class({
 	    }
 	}
 
-	// test
-	// this.testItem = new PopupMenu.PopupMenuItem('ctparental-box-label');
-	// this.testItem.label.set_text('toto');
-	// this.menu.addMenuItem(this.testItem);
-	
     },
     
-    _updateLabel: function(){
+    _updatePanelLabel: function(fact) {
+        this._settings = Convenience.getSettings();
+	let confDir = this._settings.get_strv("ctparental-configuration-file");
+
+        // 0 = show label, 1 = show icon + warning, 2 = show icon + label
+        let appearance = this._settings.get_int("ctparental-panel-appearance");
+
+	let logoutTime = Stuff.getLogoutTime(confDir);
+        if (logoutTime < 10) {
+            this.statusLabel.text = _("Logout in ")+logoutTime+_(" minutes");
+	    this.panelContainer.add_style_class_name('ctparental-notification');
+        } else {
+            this.statusLabel.text = _("CTParental"+logoutTime);
+	    this.panelContainer.remove_style_class_name('ctparental-notification');
+        }
+	
+        if (appearance === 0) {
+            this.panelContainer.show();
+            this.icon.hide();
+        } else {
+            this.icon.show();
+            if (appearance === 1) {
+		if (logoutTime >= 10) {
+		    this.statusLabel.hide();
+		}
+	    }
+            else {
+		this.statusLabel.show();
+	    }
+        }
+    },
+
+    _updatePanelDisplay: function(){
         let refreshTime = 60; // in seconds
         if (this._timeout) {
             Mainloop.source_remove(this._timeout);
             this._timeout = null;
         }
-        this._timeout = Mainloop.timeout_add_seconds(refreshTime, Lang.bind(this, this._updateLabel));
+        this._timeout = Mainloop.timeout_add_seconds(refreshTime, Lang.bind(this, this._updatePanelDisplay));
 
+	this._updatePanelLabel();
 	this._updateMenu();
 	return true;
     },
