@@ -8,7 +8,11 @@ Current validated Gnome shell version: 3.22
 
 Please tell me if this extension is functional on other versions.
 
-#### Manual installation for testing and development
+### Install from Gnome extensions
+
+Visit the CTParental page on : https://extensions.gnome.org/extension/1384/ctparental/
+
+### Manual installation for testing and development
 
 To install just symlink the checkout folder into `~/.local/share/gnome-shell/extensions/` as `ctparental@tribu-ml.fr`. It looks something like this:
 
